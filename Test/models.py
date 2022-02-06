@@ -72,6 +72,14 @@ class Answer(models.Model):
         return self.submit.respondent.twitter_id + " " + str(self.question_num)
 
 
+class Question(models.Model):
+    id = models.AutoField(primary_key=True)
+    option1 = models.CharField(max_length=512)
+    option2= models.CharField(max_length=512)
+    num = models.IntegerField()
+
+    def __str__(self):
+        return "question " + str(self.num)
 
 
 

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Respondent, Submit, Answer
+from .models import Respondent, Submit, Answer, Question
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -18,3 +18,9 @@ class RespondentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Respondent
         fields = ['id', 'age', 'gender', 'twitter_id', 'submits']
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = ['id', 'option1', 'option2', 'num']

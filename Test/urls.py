@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from .api_views import RespondentViewSet, SubmitViewSet, AnswerViewSet, MBTITestView
+from .api_views import RespondentViewSet, SubmitViewSet, AnswerViewSet, QuestionViewSet, MBTITestView
 from django.views.generic import TemplateView
 from rest_framework.schemas import get_schema_view
 
@@ -9,6 +9,7 @@ router = routers.DefaultRouter()
 router.register('respondents', RespondentViewSet, basename='respondent')
 router.register('submits', SubmitViewSet, basename='submit')
 router.register('answers', AnswerViewSet, basename='answer')
+router.register('question', QuestionViewSet, basename='question')
 
 urlpatterns = [
     path('api/', include(router.urls)),

@@ -3,8 +3,8 @@ from rest_framework import viewsets, status
 from rest_framework.schemas import AutoSchema
 from rest_framework.response import Response
 from  rest_framework.views import APIView
-from .models import Respondent, Answer, Submit
-from .serializers import RespondentSerializer, SubmitSerializer, AnswerSerializer
+from .models import Respondent, Answer, Submit, Question
+from .serializers import RespondentSerializer, SubmitSerializer, AnswerSerializer, QuestionSerializer
 
 
 class RespondentViewSet(viewsets.ModelViewSet):
@@ -19,7 +19,12 @@ class SubmitViewSet(viewsets.ModelViewSet):
 
 class AnswerViewSet(viewsets.ModelViewSet):
     queryset = Answer.objects.all()
-    serializer_class =  AnswerSerializer
+    serializer_class = AnswerSerializer
+
+
+class QuestionViewSet(viewsets.ModelViewSet):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
 
 
 class MBTITestView(APIView):
