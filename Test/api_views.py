@@ -34,8 +34,6 @@ class MBTITestView(APIView):
             if ans not in [option[0] for option in Answer.ANSWER_OPTIONS]:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        print("@@@@@@@@@@@@@@@@@")
-
         if Respondent.objects.filter(twitter_id=respondent_dict['twitter_id']):
             respondent = Respondent.objects.get(twitter_id=respondent_dict['twitter_id'])
         else:
