@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from .api_views import RespondentViewSet, SubmitViewSet, AnswerViewSet
+from .api_views import RespondentViewSet, SubmitViewSet, AnswerViewSet, MBTITestView
 from django.views.generic import TemplateView
 from rest_framework.schemas import get_schema_view
 
@@ -12,6 +12,7 @@ router.register('answers', AnswerViewSet, basename='answer')
 
 urlpatterns = [
     path('api/', include(router.urls)),
+    path('api/MBTITestView/', MBTITestView.as_view(), name="MBTITestView"),
     path('openapi', get_schema_view(
                 title="MBTI Test",
                 description="API for all things …",
