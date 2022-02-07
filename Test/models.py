@@ -34,22 +34,50 @@ class Submit(models.Model):
         if self.answers.all().count() < 60:
             return
 
-        # this array is only for counting answers and is valid only in this method
-        #           E  I    N  S    F  T    J  P
-        factors = [[0, 0], [0, 0], [0, 0], [0, 0]]
+        # # this array is only for counting answers and is valid only in this method
+        # #           E  I    N  S    F  T    J  P
+        # factors = [[0, 0], [0, 0], [0, 0], [0, 0]]
+        # for answer in self.answers.all():
+        #     factors[(answer.question_num-1) % 4][answer.ans % 2] += 1
+        #
+        # # this array is to find the personality type(ptype) without naested ifs
+        # types = ['ENFJ', 'ENFP', 'ENTJ', 'ENTP', 'ESFJ', 'ESFP', 'ESTJ', 'ESTP',
+        #          'INFJ', 'INFP', 'INTJ', 'INTP', 'ISFJ', 'ISFP', 'ISTJ', 'ISTP']
+        #
+        # result_index = 0
+        # for i in range(len(factors)):
+        #     result_index *= 2
+        #     result_index += 0 if factors[i][0] > factors[i][1] else 1
+        i, e, n, s, f, t, j, p = 0, 0, 0, 0, 0, 0, 0, 0
         for answer in self.answers.all():
-            factors[(answer.question_num-1) % 4][answer.ans % 2] += 1
+            if answer.question_num % 4 == 1:
+                if answer.ans == 1:
+                    i += 1
+                elif answer.ans == 2:
+                    e += 1
+            elif answer.question_num % 4 == 2:
+                if answer.ans == 1:
+                    s += 1
+                elif answer.ans == 2:
+                    n += 1
+            elif answer.question_num % 4 == 3:
+                if answer.ans == 1:
+                    t += 1
+                elif answer.ans == 2:
+                    f += 1
+            elif answer.question_num % 4 == 0:
+                if answer.ans == 1:
+                    p += 1
+                elif answer.ans == 2:
+                    j += 1
 
-        # this array is to find the personality type(ptype) without naested ifs
-        types = ['ENFJ', 'ENFP', 'ENTJ', 'ENTP', 'ESFJ', 'ESFP', 'ESTJ', 'ESTP',
-                 'INFJ', 'INFP', 'INTJ', 'INTP', 'ISFJ', 'ISFP', 'ISTJ', 'ISTP']
+        result = ''
+        result += "I" if i > e else "E"
+        result += "S" if s > n else "N"
+        result += "T" if t > f else "F"
+        result += "P" if p > j else "J"
 
-        result_index = 0
-        for i in range(len(factors)):
-            result_index *= 2
-            result_index += 0 if factors[i][0] > factors[i][1] else 1
-
-        self.ptype = types[result_index]
+        self.ptype = result
         return
 
     def save(self, *args, **kwargs):
